@@ -1,5 +1,6 @@
 import 'package:chatr/core/network/network_info.dart';
 import 'package:chatr/features/chat/data/datasources/firebase_chat_repository.dart';
+import 'package:chatr/features/chat/data/models/message_entity_model.dart';
 import 'package:chatr/features/chat/domain/entities/message_entity.dart';
 import 'package:chatr/features/chat/domain/repositories/chat_repository.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +20,12 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Stream<List<MessageEntity>> getMessages()  {
+  Stream<List<MessageEntity>> getMessages() {
     return firebaseChatRepository.messages();
   }
 
   @override
-  Future sendMessage(MessageEntity message) {
-    return firebaseChatRepository.sendMessage(message);
+  Future sendMessage(MessageEntityModel m) {
+    return firebaseChatRepository.sendMessage(m);
   }
 }

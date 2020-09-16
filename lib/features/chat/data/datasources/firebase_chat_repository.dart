@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:chatr/features/chat/data/models/message_entity_model.dart';
 import 'package:chatr/features/chat/domain/entities/message_entity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dartz/dartz.dart';
 
 class FirebaseChatRepository {
   static final path = "global_messages";
@@ -12,14 +11,23 @@ class FirebaseChatRepository {
   FirebaseChatRepository(this._firestore);
 
   Stream<List<MessageEntity>> messages() {
-    return _firestore.collection(path).snapshots().map((snapshot) {
+    return _firestore
+        .collection(path)
+        .orderBy('timestamp', descending: true)
+        .limit(200)
+        .snapshots()
+        .map((snapshot) {
       return snapshot.documents.map((doc) {
-        return MessageEntityModel(
+        var date =
+            new DateTime.fromMicrosecondsSinceEpoch(doc['timestamp'] * 1000)
+                .toString();
+        return MessageEntity(
           id: doc['id'],
-          timestamp: doc['timestamp'],
+          date: date,
           author: doc['author'],
+          timestamp: doc['timestamp'],
           text: doc['text'],
-        ); 
+        );
       }).toList();
     });
   }

@@ -28,10 +28,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   Stream<ChatState> mapEventToState(ChatEvent event) async* {
     if (event is GetMessagesEvent) {
       yield Loading();
-      final messages = await getMessages(NoParams()).first;
-      yield Loaded(messages: messages);
+      yield Loaded(messages: getMessages(NoParams()));
     } else if (event is SendMessageEvent) {
-      final result = await sendMessage(sm.Params(message: event.messageEntity));
+      final result = await sendMessage(sm.Params(message: event.message));
     } else if (event is DeleteMessageEvent) {
       final result = await deleteMessage(dm.Params(id: event.messageEntity.id));
     }

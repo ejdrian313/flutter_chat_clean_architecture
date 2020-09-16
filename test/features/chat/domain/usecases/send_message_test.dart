@@ -26,7 +26,7 @@ void main() {
       when(mockChatRepository.sendMessage(message))
           .thenAnswer((_) async => null);
       // act
-      final result = await usecase(Params(message: message));
+      final result = await usecase(Params(message: message.text));
       // assert
       expect(result, null);
       verify(mockChatRepository.sendMessage(message));

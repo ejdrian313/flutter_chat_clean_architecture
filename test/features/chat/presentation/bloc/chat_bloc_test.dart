@@ -58,10 +58,10 @@ void main() {
         // arrange
         when(mockSendMessage(any)).thenAnswer((_) async => Right(null));
         // act
-        bloc.add(SendMessageEvent(message));
+        bloc.add(SendMessageEvent(message.text));
         await untilCalled(mockSendMessage(any));
         // assert
-        verify(mockSendMessage(sm.Params(message: message)));
+        verify(mockSendMessage(sm.Params(message: message.text)));
       },
     );
 

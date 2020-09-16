@@ -18,11 +18,11 @@ class DeleteMessageEvent extends ChatEvent {
 }
 
 class SendMessageEvent extends ChatEvent {
-  final MessageEntity messageEntity;
-  SendMessageEvent(this.messageEntity);
+  final String message;
+  SendMessageEvent(this.message);
 
   @override
-  List<Object> get props => [messageEntity];
+  List<Object> get props => [message];
 }
 
 class GetMessagesEvent extends ChatEvent {}

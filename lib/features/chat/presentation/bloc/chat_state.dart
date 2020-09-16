@@ -13,7 +13,7 @@ class Empty extends ChatState {}
 class Loading extends ChatState {}
 
 class Loaded extends ChatState {
-  final List<MessageEntity> messages;
+  final Stream<List<MessageEntity>> messages;
 
   Loaded({@required this.messages});
 
